@@ -22,7 +22,7 @@ I have attempted to use the best practices for both ends, which should make it e
 
 # How to use this template
 
-[📀 Demo video](https://youtu.be/N2pvvkyoS68)
+[📀 Demo video]()
 
 ### STEP 1:
 
