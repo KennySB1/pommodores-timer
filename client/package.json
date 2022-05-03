@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=10000 react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
   },

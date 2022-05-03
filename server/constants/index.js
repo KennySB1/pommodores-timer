@@ -1,6 +1,6 @@
 const ORIGIN = '*'
-const PORT = process.env.PORT || 8080
-
+const PORT = 8080
+// process.env.PORT || 8080
 // for "atlas" edit MONGO_URI in -> .env file || for "community server" edit <MyDatabase>
 const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://kenny:kenny@pommodores0.cl4ks.mongodb.net/Pommodores?retryWrites=true&w=majority'
 const MONGO_OPTIONS = {}
