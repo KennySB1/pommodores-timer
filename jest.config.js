@@ -1,14 +1,10 @@
-// Sync object
-/** @type {import('@jest/types').Config.InitialOptions} */
-const config = {
-  verbose: true,
+module.exports = {
+  preset: 'ts-jest',
   transform: {
-    "^.+\\.js$": "babel-jest",
-    "^.+\\.jsx$": "babel-jest", // This line was missing
-  },
+    '^.+\\.(ts|tsx)?$': 'jest',
+    "^.+\\.(js|jsx)$": "babel-jest",
+  }
 };
-
-module.exports = config;
 
 // // Or async function
 // module.exports = async () => {
