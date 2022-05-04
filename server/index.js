@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 async function bootstrap() {
   await mongo.connect();
 
+
   const path = require("path");
 
   app.use(express.static(path.resolve(__dirname, "../client/build")));
@@ -18,6 +19,7 @@ async function bootstrap() {
   // app.get('/', (req, res) => res.status(200).json({message: 'Hello World!'}))
   app.get("/healthz", (req, res) => res.status(200).send());
   app.use("/auth", authRoutes);
+
 
   app.listen(PORT, () => {
     console.log(`✅ Server is listening on port: ${PORT}`);
