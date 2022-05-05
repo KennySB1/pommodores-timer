@@ -4,11 +4,9 @@ import 'antd/dist/antd.css';
 import { List } from 'antd';
 
 const data = [
-  'Racing car sprays burning fuel into crowd.',
-  'Japanese princess to wed commoner.',
-  'Australian walks 100km after outback crash.',
-  'Man charged over missing wedding girl.',
-  'Los Angeles battles huge wildfires.',
+  {title: 'BBC sport', url: 'https://www.bbc.co.uk/sport'},
+  {title: 'Go for a walk', url: ''},
+  {title: 'Guess the weather in Norway', url: 'https://www.bbc.co.uk/weather/3143244'}
 ];
 
 export const Suggestions = () => (
@@ -20,9 +18,14 @@ export const Suggestions = () => (
       dataSource={data}
       renderItem={item => (
         <List.Item>
-          <List.Item.Meta
-            title={<a href="www.bbc.co.uk/sport">{item}</a>}
-          />
+          {item.url ? <List.Item.Meta
+            title={<a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a>} 
+          /> : <List.Item.Meta
+          title={<p>{item.title}</p>} 
+          />}
+          
+          
+
         </List.Item>
       )}
     />
