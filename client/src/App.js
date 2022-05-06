@@ -10,8 +10,8 @@ import SettingsContext from "./components/SettingsContext";
 export default function App() {
   const {isLoggedIn} = useAuth()
   const [showSettings, setShowSettings] = useState(false);
-  const [workMinutes, setWorkMinutes] = useState(45);
-  const [breakMinutes, setBreakMinutes] = useState(15);
+  const [workMinutes, setWorkMinutes] = useState(10);
+  const [breakMinutes, setBreakMinutes] = useState(50);
 
   return (
     <div className='App'>

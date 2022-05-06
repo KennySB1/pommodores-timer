@@ -5,6 +5,7 @@ import PauseButton from "./PauseButton";
 import SettingsButton from "./SettingsButton";
 import {useContext, useState, useEffect, useRef} from "react";
 import SettingsContext from "./SettingsContext";
+import SelectTimer from './SelectTimerButtons';
 
 const red = '#f54e4e';
 const green = '#4aec8c';
@@ -15,24 +16,27 @@ function Timer() {
   const [isPaused, setIsPaused] = useState(true);
   const [mode, setMode] = useState('work'); // work/break/null
   const [secondsLeft, setSecondsLeft] = useState(0);
-
+  
   const secondsLeftRef = useRef(secondsLeft);
   const isPausedRef = useRef(isPaused);
   const modeRef = useRef(mode);
-
+  
+  
   function tick() {
     secondsLeftRef.current--;
     setSecondsLeft(secondsLeftRef.current);
   }
-
+  
   useEffect(() => {
-
+    
     function switchMode() {
       const nextMode = modeRef.current === 'work' ? 'break' : 'work';
       const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
-
+      
       setMode(nextMode);
       modeRef.current = nextMode;
+      
+      isPausedRef.current = true
 
       setSecondsLeft(nextSeconds);
       secondsLeftRef.current = nextSeconds;
@@ -66,6 +70,8 @@ function Timer() {
 
   return (
     <div>
+      <SelectTimer onClick={() => { setMode('work'); modeRef.current = 'work'; }}/>
+
       <CircularProgressbar
         value={percentage}
         text={minutes + ':' + seconds}
