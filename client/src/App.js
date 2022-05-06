@@ -1,5 +1,6 @@
 import {useAuth} from './contexts/AuthContext'
 import Header from './components/Header'
+import { Suggestions } from './components/Suggestions'
 
 export default function App() {
   const {isLoggedIn} = useAuth()
@@ -8,6 +9,7 @@ export default function App() {
     <div className='App'>
       <Header />
 
+      <Suggestions />
       {isLoggedIn ? <LoggedInText /> : <LoggedOutText />}
     </div>
   )
