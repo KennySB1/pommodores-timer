@@ -64,7 +64,10 @@ export default function Header() {
           </ListSubheader>
 
           {isLoggedIn ? (
+            <Fragment>
             <ListItemButton onClick={logout}>Logout</ListItemButton>
+            <ListItemButton>Preferences</ListItemButton>
+            </Fragment>
           ) : (
             <Fragment>
               <ListItemButton onClick={clickLogin}>Login</ListItemButton>

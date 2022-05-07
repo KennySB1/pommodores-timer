@@ -10,6 +10,7 @@ import {
 } from '@mui/material'
 import OnlineIndicator from './OnlineIndicator'
 import AuthModal from './AuthModal'
+import PreferencesModal from './PreferencesModal'
 import {useAuth} from '../contexts/AuthContext'
 
 export default function Header() {
@@ -18,6 +19,7 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null)
   const [popover, setPopover] = useState(false)
   const [authModal, setAuthModal] = useState(false)
+  const [preferencesModal, setPreferencesModal] = useState(false)
   const [register, setRegister] = useState(false)
 
   const openPopover = (e) => {
@@ -33,6 +35,11 @@ export default function Header() {
   const clickLogin = () => {
     setRegister(false)
     setAuthModal(true)
+    closePopover()
+  }
+
+  const clickPreferences = () => {
+    setPreferencesModal(true)
     closePopover()
   }
 
@@ -64,10 +71,15 @@ export default function Header() {
           </ListSubheader>
 
           {isLoggedIn ? (
-            <ListItemButton onClick={logout}>Logout</ListItemButton>
+            <Fragment>
+                <ListItemButton onClick={logout}>Logout</ListItemButton>
+                <ListItemButton onClick={clickPreferences}>Preferences</ListItemButton>
+            </Fragment>
+          
           ) : (
             <Fragment>
               <ListItemButton onClick={clickLogin}>Login</ListItemButton>
+
               <ListItemButton onClick={clickRegister}>Register</ListItemButton>
             </Fragment>
           )}
@@ -80,6 +92,11 @@ export default function Header() {
         isRegisterMode={register}
         toggleRegister={() => setRegister((prev) => !prev)}
       />
+
+
+      <PreferencesModal
+        open={preferencesModal}
+        />
     </AppBar>
   )
 }
