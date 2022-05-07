@@ -9,7 +9,7 @@ const data = [
   {title: 'Guess the weather in Norway', url: 'https://www.bbc.co.uk/weather/3143244'}
 ];
 
-export const Suggestions = () => (
+const Suggestions = () => (
   <>
     <List
       style={{width: 400}}
@@ -31,3 +31,5 @@ export const Suggestions = () => (
     />
   </>
 );
+
+export default Suggestions

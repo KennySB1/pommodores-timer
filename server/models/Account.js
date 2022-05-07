@@ -23,6 +23,16 @@ const instance = new mongoose.Schema(
       enum: ['user', 'admin'],
       default: 'user',
     },
+    breakSuggestions: {
+      type: Array,
+      required: false,
+      default: [
+        {title: 'BBC sport', url: 'https://www.bbc.co.uk/sport', category: 'sport'},
+        {title: 'Go for a walk', url: '', category: 'exercise'},
+        {title: 'Guess the weather in Norway', url: 'https://www.bbc.co.uk/weather/3143244', category: 'fun'}
+      ]
+
+    },
   },
   {
     timestamps: true,
