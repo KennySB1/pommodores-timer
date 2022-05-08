@@ -10,8 +10,10 @@ function TimerContainer() {
   return (
       <div>
         <SelectTimerType mode={mode} setMode={setMode} />
-        <Timer mode={mode}/>
-        {mode !== "pomodoro" && <Suggestions />}
+        <div style={{marginTop:'20px'}}>
+          <Timer mode={mode}/>
+        </div>
+          {mode !== "pomodoro" && <Suggestions />}
       </div>
   );
 }
