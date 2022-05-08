@@ -14,18 +14,22 @@ export const SelectTimerType = (props) => {
   };
 
   return (
-    <ToggleButtonGroup
-      color="error"
-      value={props.mode}
-      exclusive
-      onChange={handleChange}
-      size='small'
-      fullWidth
-    >
-      <ToggleButton value="pomodoro">Pomodoro</ToggleButton>
-      <ToggleButton value="shortBreak">Short Break</ToggleButton>
-      <ToggleButton value="longBreak">Long Break</ToggleButton>
-    </ToggleButtonGroup>
+    <>
+      <ToggleButtonGroup
+        color="error"
+        value={props.mode}
+        exclusive
+        onChange={handleChange}
+        size='small'
+        fullWidth
+      >
+        <ToggleButton value="pomodoro">Pomodoro</ToggleButton>
+        <ToggleButton value="shortBreak">Short Break</ToggleButton>
+        <ToggleButton value="longBreak">Long Break</ToggleButton>
+      </ToggleButtonGroup>
+    </>
+    
+
   )
 
 }

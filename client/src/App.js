@@ -1,7 +1,7 @@
 import {useAuth} from './contexts/AuthContext'
 import Header from './components/Header'
 import { Suggestions } from './components/Suggestions'
-import Timer from "./components/TimerContainer";
+import TimerContainer from "./components/TimerContainer";
 import Settings from "./components/Settings";
 import {useState} from "react";
 import SettingsContext from "./components/SettingsContext";
@@ -25,7 +25,7 @@ export default function App() {
         setWorkMinutes,
         setBreakMinutes,
       }}>
-        {showSettings ? <Settings /> : <Timer />}
+        {showSettings ? <Settings /> : <TimerContainer />}
       </SettingsContext.Provider>
       
       </main>
