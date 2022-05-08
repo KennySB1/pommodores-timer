@@ -28,8 +28,5 @@ export const SelectTimerType = (props) => {
         <ToggleButton value="longBreak">Long Break</ToggleButton>
       </ToggleButtonGroup>
     </>
-    
-
   )
-
 }

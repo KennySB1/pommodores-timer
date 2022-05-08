@@ -19,13 +19,13 @@ function Settings() {
         min={1}
         max={120}
       />
-      <label>break: {settingsInfo.breakMinutes}:00</label>
+      <label>break: {settingsInfo.shortBreakMinutes}:00</label>
       <ReactSlider
         className={'slider green'}
         thumbClassName={'thumb'}
         trackClassName={'track'}
         value={settingsInfo.breakMinutes}
-        onChange={newValue => settingsInfo.setBreakMinutes(newValue)}
+        onChange={newValue => settingsInfo.setShortBreakMinutes(newValue)}
         min={1}
         max={120}
       />

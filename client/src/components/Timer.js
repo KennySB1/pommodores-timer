@@ -5,7 +5,6 @@ import PauseButton from "./PauseButton";
 import SettingsButton from "./SettingsButton";
 import {useContext, useState, useEffect} from "react";
 import SettingsContext from "./SettingsContext";
-import { usePreviousProps } from '@mui/utils';
 
 const red = '#f54e4e';
 const green = '#4aec8c';
@@ -28,7 +27,6 @@ export const Timer = (props) => {
         return;
         // return switchMode();
       }
-
       tick();
     },1);
 
@@ -36,37 +34,25 @@ export const Timer = (props) => {
   }, [isPaused, secondsLeft]);
 
   useEffect(() => {
-    const resetCounter = () => {
-      if(props.mode === 'pomodoro') {
-        setSecondsLeft(settingsInfo.workMinutes * 60);
-      } else if(props.mode === 'shortBreak') {
-        setSecondsLeft(settingsInfo.breakMinutes * 60);
-      } else {
-        setSecondsLeft(settingsInfo.breakMinutes * 60);
-      }
-    }
-    resetCounter();
+      setSecondsLeft(totalSeconds)
   }, [props.mode]);
 
   const calculateSeconds = () => {
     if(props.mode === 'pomodoro') {
       return settingsInfo.workMinutes * 60;
     } else if(props.mode === 'shortBreak') {
-      return settingsInfo.breakMinutes * 60;
+      return settingsInfo.shortBreakMinutes * 60;
     } else {
-      return settingsInfo.breakMinutes * 60;
+      return settingsInfo.longBreakMinutes * 60;
     }
   }
   let totalSeconds = calculateSeconds();
-  console.log(totalSeconds)
 
   let percentage = Math.round(secondsLeft / totalSeconds * 100);
-  console.log(percentage)
 
   const minutes = Math.floor(secondsLeft / 60);
   let seconds = secondsLeft % 60;
   if(seconds < 10) seconds = '0'+seconds;
-
 
   return (
     <>

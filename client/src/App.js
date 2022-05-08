@@ -11,7 +11,8 @@ export default function App() {
   const {isLoggedIn} = useAuth()
   const [showSettings, setShowSettings] = useState(false);
   const [workMinutes, setWorkMinutes] = useState(25);
-  const [breakMinutes, setBreakMinutes] = useState(5);
+  const [shortBreakMinutes, setShortBreakMinutes] = useState(5);
+  const [longBreakMinutes, setLongBreakMinutes] = useState(15);
 
   return (
     <div className='App'>
@@ -21,9 +22,11 @@ export default function App() {
         showSettings,
         setShowSettings,
         workMinutes,
-        breakMinutes,
+        shortBreakMinutes,
         setWorkMinutes,
-        setBreakMinutes,
+        setShortBreakMinutes,
+        longBreakMinutes,
+        setLongBreakMinutes
       }}>
         {showSettings ? <Settings /> : <TimerContainer />}
       </SettingsContext.Provider>

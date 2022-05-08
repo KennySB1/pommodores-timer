@@ -5,16 +5,14 @@ import { SelectTimerType } from './SelectTimerType';
 import { Timer } from "./Timer";
 
 function TimerContainer() {
-  const settingsInfo = useContext(SettingsContext);
-  
   const [mode, setMode] = useState('pomodoro');
 
   return (
-    <div>
-    <SelectTimerType mode={mode} setMode={setMode} />
-      <Timer mode={mode}/>
-      {mode !== "pomodoro" && <Suggestions />}
-    </div>
+      <div>
+        <SelectTimerType mode={mode} setMode={setMode} />
+        <Timer mode={mode}/>
+        {mode !== "pomodoro" && <Suggestions />}
+      </div>
   );
 }
 
