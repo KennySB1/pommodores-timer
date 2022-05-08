@@ -35,6 +35,7 @@ export const Timer = (props) => {
 
   useEffect(() => {
       setSecondsLeft(totalSeconds)
+      setIsPaused(true)
   }, [props.mode]);
 
   const calculateSeconds = () => {
