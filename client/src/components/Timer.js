@@ -13,48 +13,40 @@ const green = '#4aec8c';
 function Timer() {
   const settingsInfo = useContext(SettingsContext);
 
+
+  function switchMode() {
+    const nextMode = mode === 'work' ? 'break' : 'work';
+    const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
+
+    setMode(nextMode);
+    // modeRef.current = nextMode;
+
+    setSecondsLeft(nextSeconds);
+    // secondsLeftRef.current = nextSeconds;
+  }
+
   const [isPaused, setIsPaused] = useState(true);
   const [mode, setMode] = useState('work'); // work/break/null
-  const [secondsLeft, setSecondsLeft] = useState(0);
-
-  const secondsLeftRef = useRef(secondsLeft);
-  const isPausedRef = useRef(isPaused);
-  const modeRef = useRef(mode);
+  const [secondsLeft, setSecondsLeft] = useState(settingsInfo.workMinutes * 60); //should set the initial seconds in here
 
   function tick() {
-    secondsLeftRef.current--;
-    setSecondsLeft(secondsLeftRef.current);
+    setSecondsLeft(secondsLeft - 1);
   }
 
   useEffect(() => {
-
-    function switchMode() {
-      const nextMode = modeRef.current === 'work' ? 'break' : 'work';
-      const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
-
-      setMode(nextMode);
-      modeRef.current = nextMode;
-
-      setSecondsLeft(nextSeconds);
-      secondsLeftRef.current = nextSeconds;
-    }
-
-    secondsLeftRef.current = settingsInfo.workMinutes * 60;
-    setSecondsLeft(secondsLeftRef.current);
-
     const interval = setInterval(() => {
-      if (isPausedRef.current) {
+      if (isPaused) {
         return;
       }
-      if (secondsLeftRef.current === 0) {
-        return switchMode();
+      if (secondsLeft === 0) {
+        return switchMode(); // Need to add this back in at some point
       }
 
       tick();
     },1);
 
     return () => clearInterval(interval);
-  }, [settingsInfo]);
+  }, [isPaused, secondsLeft, mode]);
 
   const totalSeconds = mode === 'work'
     ? settingsInfo.workMinutes * 60
@@ -77,14 +69,14 @@ function Timer() {
       })} />
       <div style={{marginTop:'20px'}}>
         {isPaused
-          ? <PlayButton onClick={() => { setIsPaused(false); isPausedRef.current = false; }} />
-          : <PauseButton onClick={() => { setIsPaused(true); isPausedRef.current = true; }} />}
+          ? <PlayButton onClick={() => { setIsPaused(false)}} />
+          : <PauseButton onClick={() => { setIsPaused(true)}} />}
       </div>
       <div style={{marginTop:'20px'}}>
         <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
       </div>
 
-      {modeRef.current === "break" && <Suggestions />}
+      {mode === "break" && <Suggestions />}
     </div>
   );
 }
