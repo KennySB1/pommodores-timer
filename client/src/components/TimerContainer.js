@@ -13,19 +13,9 @@ const green = '#4aec8c';
 
 function Timer() {
   const settingsInfo = useContext(SettingsContext);
-
-
-  function switchMode() {
-    const nextMode = mode === 'work' ? 'break' : 'work';
-    const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
-
-    setMode(nextMode);
-
-    setSecondsLeft(nextSeconds);
-  }
-
+  
   const [isPaused, setIsPaused] = useState(true);
-  const [mode, setMode] = useState('work'); // work/break/null
+  const [mode, setMode] = useState('pomodoro'); // work/break/null
   const [secondsLeft, setSecondsLeft] = useState(settingsInfo.workMinutes * 60); //should set the initial seconds in here
 
   function tick() {
@@ -38,7 +28,8 @@ function Timer() {
         return;
       }
       if (secondsLeft === 0) {
-        return switchMode(); // Need to add this back in at some point
+        return;
+        // return switchMode();
       }
 
       tick();
@@ -47,7 +38,7 @@ function Timer() {
     return () => clearInterval(interval);
   }, [isPaused, secondsLeft, mode]);
 
-  const totalSeconds = mode === 'work'
+  const totalSeconds = mode === 'pomodoro'
     ? settingsInfo.workMinutes * 60
     : settingsInfo.breakMinutes * 60;
   const percentage = Math.round(secondsLeft / totalSeconds * 100);
@@ -58,13 +49,13 @@ function Timer() {
 
   return (
     <div>
-    <SelectTimerType />
+    <SelectTimerType mode={mode} setMode={setMode}/>
       <CircularProgressbar
         value={percentage}
         text={minutes + ':' + seconds}
         styles={buildStyles({
         textColor:'#20 10 10',
-        pathColor:mode === 'work' ? red : green,
+        pathColor:mode !== 'pomodoro' ? green : red,
         tailColor:'rgba(255,255,255,.2)',
       })} />
       <div style={{marginTop:'20px'}}>
@@ -76,7 +67,7 @@ function Timer() {
         <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
       </div>
 
-      {mode === "break" && <Suggestions />}
+      {mode !== "pomodoro" && <Suggestions />}
     </div>
   );
 }
