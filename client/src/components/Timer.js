@@ -19,10 +19,8 @@ function Timer() {
     const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
 
     setMode(nextMode);
-    // modeRef.current = nextMode;
 
     setSecondsLeft(nextSeconds);
-    // secondsLeftRef.current = nextSeconds;
   }
 
   const [isPaused, setIsPaused] = useState(true);
