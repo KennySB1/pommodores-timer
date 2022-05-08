@@ -4,8 +4,9 @@ import PlayButton from "./PlayButton";
 import PauseButton from "./PauseButton";
 import Suggestions from "./Suggestions"
 import SettingsButton from "./SettingsButton";
-import {useContext, useState, useEffect, useRef} from "react";
+import {useContext, useState, useEffect} from "react";
 import SettingsContext from "./SettingsContext";
+import { SelectTimerType } from './SelectTimerType';
 
 const red = '#f54e4e';
 const green = '#4aec8c';
@@ -57,6 +58,7 @@ function Timer() {
 
   return (
     <div>
+    <SelectTimerType />
       <CircularProgressbar
         value={percentage}
         text={minutes + ':' + seconds}
