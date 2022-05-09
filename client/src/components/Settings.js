@@ -29,7 +29,7 @@ function Settings() {
         min={1}
         max={120}
       />
-      <label>Long Break: {settingsInfo.shortBreakMinutes}:00</label>
+      <label>Long Break: {settingsInfo.longBreakMinutes}:00</label>
       <ReactSlider
         className={'slider green'}
         thumbClassName={'thumb'}
