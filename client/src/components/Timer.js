@@ -5,11 +5,21 @@ import PauseButton from "./PauseButton";
 import SettingsButton from "./SettingsButton";
 import {useContext, useState, useEffect} from "react";
 import SettingsContext from "./SettingsContext";
+import StopButton from './StopButton';
 
 const red = '#f54e4e';
 const green = '#4aec8c';
 
 export const Timer = (props) => {
+
+  const stop = ()=>  {
+    console.log('clicked')
+    const secondsForMode = props.mode === 'pomodoro' ? settingsInfo.workMinutes * 60 : props.mode === 'shortBreak' ? settingsInfo.shortBreakMinutes * 60 : settingsInfo.longBreakMinutes * 60;
+    setIsPaused(true);
+    console.log('does it reach here?')
+    setSecondsLeft(secondsForMode)
+    }
+
   const settingsInfo = useContext(SettingsContext);
   const [isPaused, setIsPaused] = useState(true);
   const [secondsLeft, setSecondsLeft] = useState(settingsInfo.workMinutes * 60);
@@ -69,9 +79,12 @@ export const Timer = (props) => {
       {isPaused
         ? <PlayButton onClick={() => { setIsPaused(false)}} />
         : <PauseButton onClick={() => { setIsPaused(true)}} />}
+        <StopButton onClick={()=> stop()}/>
+        <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
+
+
     </div>
     <div style={{marginTop:'20px'}}>
-      <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
     </div>
   </>
   )
