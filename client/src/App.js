@@ -1,7 +1,7 @@
 import {useAuth} from './contexts/AuthContext'
 import Header from './components/Header'
 import { Suggestions } from './components/Suggestions'
-import Timer from "./components/Timer";
+import TimerContainer from "./components/TimerContainer";
 import Settings from "./components/Settings";
 import {useState} from "react";
 import SettingsContext from "./components/SettingsContext";
@@ -10,8 +10,9 @@ import SettingsContext from "./components/SettingsContext";
 export default function App() {
   const {isLoggedIn} = useAuth()
   const [showSettings, setShowSettings] = useState(false);
-  const [workMinutes, setWorkMinutes] = useState(45);
-  const [breakMinutes, setBreakMinutes] = useState(15);
+  const [workMinutes, setWorkMinutes] = useState(25);
+  const [shortBreakMinutes, setShortBreakMinutes] = useState(5);
+  const [longBreakMinutes, setLongBreakMinutes] = useState(15);
 
   return (
     <div className='App'>
@@ -21,11 +22,13 @@ export default function App() {
         showSettings,
         setShowSettings,
         workMinutes,
-        breakMinutes,
+        shortBreakMinutes,
         setWorkMinutes,
-        setBreakMinutes,
+        setShortBreakMinutes,
+        longBreakMinutes,
+        setLongBreakMinutes
       }}>
-        {showSettings ? <Settings /> : <Timer />}
+        {showSettings ? <Settings /> : <TimerContainer />}
       </SettingsContext.Provider>
       
       </main>
