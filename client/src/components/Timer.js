@@ -6,7 +6,8 @@ import SettingsButton from "./SettingsButton";
 import {useContext, useState, useEffect} from "react";
 import SettingsContext from "./SettingsContext";
 import StopButton from './StopButton';
-import axios from '../utils/axios'
+import axios from '../utils/axios';
+import {useAuth} from '../contexts/AuthContext';
 
 const red = '#f54e4e';
 const green = '#4aec8c';
@@ -20,6 +21,7 @@ export const Timer = (props) => {
     }
 
   const settingsInfo = useContext(SettingsContext);
+  const {isLoggedIn, account, logout} = useAuth()
   const [isPaused, setIsPaused] = useState(true);
   const [secondsLeft, setSecondsLeft] = useState(settingsInfo.workMinutes * 60);
 
@@ -28,26 +30,33 @@ export const Timer = (props) => {
   }
 
   const saveCompletedPomodoro = () => {
-    console.log('pomodoro finished')
-    new Promise((resolve, reject) => {
-      axios
-        .post('/pomodoro/save', "sample text")
-        // .then(({
-        //   data: {
-        //     data: accountData,
-        //     token: accessToken,
-        //   },
-        // }) => {
-        //   setAccount(accountData)
-        //   setToken(accessToken)
-        //   setIsLoggedIn(true)
-        //   resolve(true)
-        // })
-        // .catch((error) => {
-        //   console.error(error)
-        //   reject(error?.response?.data?.message || error.message)
-        // })
-    })
+    if (props.mode === 'pomodoro') {
+
+      // NEED TO ADD CODE HERE TO DO NOTHING IF USERNAME IS NULL
+
+      const dateNow = Date.now();
+      const pomodoroLength = settingsInfo.workMinutes;
+      const pomodoro = {username: account.username, date: dateNow, pomodoroLength: pomodoroLength}
+      new Promise((resolve, reject) => {
+        axios
+          .post('/pomodoro/save', pomodoro)
+          // .then(({
+          //   data: {
+          //     data: accountData,
+          //     token: accessToken,
+          //   },
+          // }) => {
+          //   setAccount(accountData)
+          //   setToken(accessToken)
+          //   setIsLoggedIn(true)
+          //   resolve(true)
+          // })
+          // .catch((error) => {
+          //   console.error(error)
+          //   reject(error?.response?.data?.message || error.message)
+          // })
+      })
+    }
   }
 
   useEffect(() => {

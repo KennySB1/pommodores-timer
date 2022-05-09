@@ -31,8 +31,11 @@ const instance = new mongoose.Schema(
         {title: 'Go for a walk', url: '', category: 'exercise'},
         {title: 'Guess the weather in Norway', url: 'https://www.bbc.co.uk/weather/3143244', category: 'fun'}
       ]
-
     },
+    completedPomodoros: {
+      type: Array,
+      required: false
+    }
   },
   {
     timestamps: true,
