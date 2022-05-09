@@ -43,7 +43,7 @@ async function register(request, response, next) {
     newAccount.password = undefined
     delete newAccount.password
 
-    // Generate access token
+    // Generate access tofken
     const token = signToken({uid: newAccount._id, role: newAccount.role})
 
     response.status(201).json({
