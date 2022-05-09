@@ -7,7 +7,7 @@ async function savePreferences(request, response, next) {
 
     Account.findOneAndUpdate(
         {username: request.body.username},
-        {$push: {categoryPreferences: "Sport"}},
+        {categoryPreferences: request.body.preferences},
         (err, doc) => {
             if (err) {
                 throw err
