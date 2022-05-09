@@ -1,6 +1,5 @@
 import Suggestions from "./Suggestions"
-import {useContext, useState, useEffect} from "react";
-import SettingsContext from "./SettingsContext";
+import { useState } from "react";
 import { SelectTimerType } from './SelectTimerType';
 import { Timer } from "./Timer";
 
