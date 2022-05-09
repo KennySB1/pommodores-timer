@@ -6,6 +6,7 @@ import SettingsButton from "./SettingsButton";
 import {useContext, useState, useEffect} from "react";
 import SettingsContext from "./SettingsContext";
 import StopButton from './StopButton';
+import axios from '../utils/axios'
 
 const red = '#f54e4e';
 const green = '#4aec8c';
@@ -13,10 +14,8 @@ const green = '#4aec8c';
 export const Timer = (props) => {
 
   const stop = ()=>  {
-    console.log('clicked')
     const secondsForMode = props.mode === 'pomodoro' ? settingsInfo.workMinutes * 60 : props.mode === 'shortBreak' ? settingsInfo.shortBreakMinutes * 60 : settingsInfo.longBreakMinutes * 60;
     setIsPaused(true);
-    console.log('does it reach here?')
     setSecondsLeft(secondsForMode)
     }
 
@@ -28,12 +27,37 @@ export const Timer = (props) => {
     setSecondsLeft(secondsLeft - 1);
   }
 
+  const saveCompletedPomodoro = () => {
+    console.log('pomodoro finished')
+    new Promise((resolve, reject) => {
+      axios
+        .post('/pomodoro/save', "sample text")
+        // .then(({
+        //   data: {
+        //     data: accountData,
+        //     token: accessToken,
+        //   },
+        // }) => {
+        //   setAccount(accountData)
+        //   setToken(accessToken)
+        //   setIsLoggedIn(true)
+        //   resolve(true)
+        // })
+        // .catch((error) => {
+        //   console.error(error)
+        //   reject(error?.response?.data?.message || error.message)
+        // })
+    })
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (isPaused) {
         return;
       }
       if (secondsLeft === 0) {
+        stop();
+        saveCompletedPomodoro();
         return;
         // return switchMode();
       }
