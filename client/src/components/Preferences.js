@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import SaveButton from './SaveButton';
+import {useAuth} from '../contexts/AuthContext'
 import axios from '../utils/axios';
 
 const ITEM_HEIGHT = 48;
@@ -27,8 +28,6 @@ const names = [
   'Activities',
 ];
 
-const selection = [];
-
 function getStyles(name, preferenceName, theme) {
   return {
     fontWeight:
@@ -39,6 +38,7 @@ function getStyles(name, preferenceName, theme) {
 }
 
 export default function Preferences() {
+  const account = useAuth()
   const theme = useTheme();
   const [preferenceName, setPreferenceName] = React.useState([]);
   const preferencesRef = React.useRef();
@@ -52,16 +52,16 @@ export default function Preferences() {
     );
   };
 
-function preferencesPost() {
+function preferencesPost(chosenPreferences) {
+
   axios
   .post("/preferences/save", {
-    username: "joe",
-    preferences: ["sport"]
+    username: account.account.username,
+    preferences: chosenPreferences
   })
   .then(res => console.log(res))
   .catch(err => console.error(err))
 }
-
 
 
   return (
@@ -95,7 +95,7 @@ function preferencesPost() {
             </MenuItem>
           ))}
         </Select>
-        <SaveButton onClick={() => preferencesPost()}/>
+        <SaveButton onClick={() => preferencesPost(preferencesRef.current.querySelector('#select-multiple-chip').value.split(","))}/>
       </FormControl>
       
     </div>
