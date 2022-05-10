@@ -32,6 +32,10 @@ const instance = new mongoose.Schema(
         {title: 'Guess the weather in Norway', url: 'https://www.bbc.co.uk/weather/3143244', category: 'fun'}
       ]
     },
+    completedPomodoros: {
+      type: Array,
+      required: false
+    },
     categoryPreferences: {
       type: Array,
       required: false,
