@@ -8,12 +8,18 @@ import SettingsContext from "./SettingsContext";
 import StopButton from './StopButton';
 import axios from '../utils/axios';
 import {useAuth} from '../contexts/AuthContext';
+import React from 'react';
+import AudioPlayer from './Alert';
 
+
+
+ 
 const red = '#f54e4e';
 const green = '#4aec8c';
 
 export const Timer = (props) => {
 
+const audioManager = new AudioPlayer
   const stop = ()=>  {
     const secondsForMode = props.mode === 'pomodoro' ? settingsInfo.workMinutes * 60 : props.mode === 'shortBreak' ? settingsInfo.shortBreakMinutes * 60 : settingsInfo.longBreakMinutes * 60;
     setIsPaused(true);
@@ -49,6 +55,7 @@ export const Timer = (props) => {
         return;
       }
       if (secondsLeft === 0) {
+        audioManager.playAudio();
         stop();
         saveCompletedPomodoro();
         return;
