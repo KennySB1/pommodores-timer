@@ -38,7 +38,7 @@ function getStyles(name, preferenceName, theme) {
 }
 
 export default function Preferences() {
-  const account = useAuth()
+  const {account} = useAuth()
   const theme = useTheme();
   const [preferenceName, setPreferenceName] = React.useState([]);
   const preferencesRef = React.useRef();
@@ -56,7 +56,7 @@ function preferencesPost(chosenPreferences) {
 
   axios
   .post("/preferences/save", {
-    username: account.account.username,
+    username: account.username,
     preferences: chosenPreferences
   })
   .then(res => console.log(res))

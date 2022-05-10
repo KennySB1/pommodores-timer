@@ -21,7 +21,7 @@ export const Timer = (props) => {
     }
 
   const settingsInfo = useContext(SettingsContext);
-  const {isLoggedIn, account, logout} = useAuth()
+  const {account} = useAuth()
   const [isPaused, setIsPaused] = useState(true);
   const [secondsLeft, setSecondsLeft] = useState(settingsInfo.workMinutes * 60);
 
@@ -32,30 +32,14 @@ export const Timer = (props) => {
   const saveCompletedPomodoro = () => {
     if (props.mode === 'pomodoro') {
 
-      // NEED TO ADD CODE HERE TO DO NOTHING IF USERNAME IS NULL
-
+    if (account.username !== null) {
       const dateNow = Date.now();
       const pomodoroLength = settingsInfo.workMinutes;
       const pomodoro = {username: account.username, date: dateNow, pomodoroLength: pomodoroLength}
-      new Promise((resolve, reject) => {
-        axios
-          .post('/pomodoro/save', pomodoro)
-          // .then(({
-          //   data: {
-          //     data: accountData,
-          //     token: accessToken,
-          //   },
-          // }) => {
-          //   setAccount(accountData)
-          //   setToken(accessToken)
-          //   setIsLoggedIn(true)
-          //   resolve(true)
-          // })
-          // .catch((error) => {
-          //   console.error(error)
-          //   reject(error?.response?.data?.message || error.message)
-          // })
-      })
+      axios
+        .post('/pomodoro/save', pomodoro)
+        .catch(err => console.error(err))
+      }
     }
   }
 
