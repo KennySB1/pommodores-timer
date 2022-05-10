@@ -35,6 +35,9 @@ const instance = new mongoose.Schema(
     completedPomodoros: {
       type: Array,
       required: false
+    categoryPreferences: {
+      type: Array,
+      required: false,
     }
   },
   {

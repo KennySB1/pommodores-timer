@@ -7,6 +7,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import SaveButton from './SaveButton';
+import {useAuth} from '../contexts/AuthContext'
+import axios from '../utils/axios';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -25,28 +28,41 @@ const names = [
   'Activities',
 ];
 
-function getStyles(name, personName, theme) {
+function getStyles(name, preferenceName, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      preferenceName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 
 export default function Preferences() {
+  const account = useAuth()
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
-
+  const [preferenceName, setPreferenceName] = React.useState([]);
+  const preferencesRef = React.useRef();
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setPreferenceName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
   };
+
+function preferencesPost(chosenPreferences) {
+
+  axios
+  .post("/preferences/save", {
+    username: account.account.username,
+    preferences: chosenPreferences
+  })
+  .then(res => console.log(res))
+  .catch(err => console.error(err))
+}
+
 
   return (
     <div>
@@ -56,9 +72,9 @@ export default function Preferences() {
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={personName}
+          value={preferenceName}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          input={<OutlinedInput ref={node => preferencesRef.current = node} id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
@@ -68,17 +84,20 @@ export default function Preferences() {
           )}
           MenuProps={MenuProps}
         >
+          
           {names.map((name) => (
             <MenuItem
               key={name}
               value={name}
-              style={getStyles(name, personName, theme)}
+              style={getStyles(name, preferenceName, theme)}
             >
               {name}
             </MenuItem>
           ))}
         </Select>
+        <SaveButton onClick={() => preferencesPost(preferencesRef.current.querySelector('#select-multiple-chip').value.split(","))}/>
       </FormControl>
+      
     </div>
   );
 }
