@@ -1,6 +1,5 @@
 const express = require('express')
 const savePreferences = require('../controllers/preferences/savePreferences')
-const { request } = require('express')
 
 // initialize router
 const router = express.Router()
