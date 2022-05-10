@@ -11,17 +11,17 @@ const data = [
   {title: 'Guess the weather in Norway', url: 'https://www.bbc.co.uk/weather/3143244'}
 ];
 
-
-
 const Suggestions = () => {
   const {account} = useAuth()
 
   const breakSuggestions = () => {
 
+    // , {params: {
+    //   username: account.username
+    // }}
+
     axios
-    .get("/suggestions/", {
-      username: account.username
-    })
+    .get(`/suggestions/${account.username}`)
     .then(res => console.log(res))
     .catch(err => console.error(err))
   }
