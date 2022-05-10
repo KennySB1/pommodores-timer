@@ -10,6 +10,7 @@ import axios from '../utils/axios';
 import {useAuth} from '../contexts/AuthContext';
 import React from 'react';
 import AudioPlayer from './Alert';
+import Chart from './Chart';
 
 
 
@@ -35,15 +36,18 @@ const audioManager = new AudioPlayer
     setSecondsLeft(secondsLeft - 1);
   }
 
+
   const saveCompletedPomodoro = () => {
     if (props.mode === 'pomodoro') {
 
     if (account.username !== null) {
-      const dateNow = Date.now();
+      const dateNow = new Date()
       const pomodoroLength = settingsInfo.workMinutes;
       const pomodoro = {username: account.username, date: dateNow, pomodoroLength: pomodoroLength}
+      
       axios
         .post('/pomodoro/save', pomodoro)
+        .then(res => console.log(res.data.completedPomodoros))
         .catch(err => console.error(err))
       }
     }
@@ -105,7 +109,7 @@ const audioManager = new AudioPlayer
         : <PauseButton onClick={() => { setIsPaused(true)}} />}
         <StopButton onClick={()=> stop()}/>
         <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
-
+        <Chart/>
 
     </div>
     <div style={{marginTop:'20px'}}>
