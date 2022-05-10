@@ -7,38 +7,27 @@ const instance = new mongoose.Schema(
       _id: mongoose.Schema.Types.ObjectId,
     */
 
-    username: {
-      type: String,
-      required: true,
-      lowercase: true,
-      unique: true,
-    },
-    password: {
+    title: {
       type: String,
       required: true,
     },
-    role: {
+    url: {
       type: String,
-      required: true,
-      enum: ['user', 'admin'],
-      default: 'user',
-    },
-    completedPomodoros: {
-      type: Array,
-      required: false
-    },
-    categoryPreferences: {
-      type: Array,
       required: false,
-    }
-  },
-  {
-    timestamps: true,
-  },
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+  }
 )
+
+// {title: 'BBC sport', url: 'https://www.bbc.co.uk/sport', category: 'sport'},
+// {title: 'Go for a walk', url: '', category: 'exercise'},
+// {title: 'Guess the weather in Norway', url: 'https://www.bbc.co.uk/weather/3143244', category: 'fun'}
 
 // NOTE! use a singular model name, mongoose automatically creates a collection like so:
 // model: 'Account' === collection: 'accounts'
-const modelName = 'Account'
+const modelName = 'Suggestion'
 
 module.exports = mongoose.model(modelName, instance)
