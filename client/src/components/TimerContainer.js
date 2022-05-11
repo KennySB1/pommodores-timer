@@ -2,6 +2,7 @@ import Suggestions from "./Suggestions"
 import { useState } from "react";
 import { SelectTimerType } from './SelectTimerType';
 import { Timer } from "./Timer";
+import TodoComponent from "./TodoList";
 
 function TimerContainer() {
   const [mode, setMode] = useState('pomodoro');
@@ -11,8 +12,10 @@ function TimerContainer() {
         <SelectTimerType mode={mode} setMode={setMode} />
         <div style={{marginTop:'20px'}}>
           <Timer mode={mode}/>
+          <TodoComponent/>
         </div>
-          {mode !== "pomodoro" && <Suggestions />}
+          {mode !== "pomodoro" && <Suggestions/>}
+          
       </div>
   );
 }
