@@ -2,7 +2,6 @@ const Account = require('../../models/Account')
 const { mongoose } = require('../../utils/mongo')
 
 async function saveTodos(request, response, next) {
-    console.log(request)
     Account.findOneAndUpdate(
         {username: request.body.username},
         {$push: {todos: request.body.todo}},

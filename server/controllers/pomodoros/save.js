@@ -5,7 +5,6 @@ const save = async (request, response, next) => {
 
   // try {
     const {username, date, pomodoroLength} = request.body
-    console.log(request.body)
 
     Account.findOneAndUpdate(
       {username: username},

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import "./App.css";
 import { Button, Card, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,7 +12,7 @@ function Todo({ todo, index, markTodo, removeTodo }) {
       className="todo"
       
     >
-      <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>{todo.text}</span>
+      <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>{todo}</span>
       <div>
         <Button variant="outline-success" onClick={() => markTodo(index)}>✓</Button>{' '}
         <Button variant="outline-danger" onClick={() => removeTodo(index)}>✕</Button>
@@ -45,21 +45,12 @@ function FormTodo({ addTodo }) {
 }
 
 function TodoComponent() {
-  const {account} = useAuth()
-  const [todos, setTodos] = React.useState([
-    {
-      text: "This is a sample todo",
-      isDone: false
-    },
-    {
-      text: "This is a another todo",
-      isDone: false
-    }
-  ]);
+  const {account, isLoggedIn} = useAuth()
+  const [todos, setTodos] = React.useState([]);
 
   const addTodo = text => {
     console.log(text);
-    const newTodos = [...todos, { text }];
+    const newTodos = [...todos, text];
     setTodos(newTodos);
     saveTodos(text)
   };
@@ -74,6 +65,8 @@ function TodoComponent() {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
     setTodos(newTodos);
+    console.log(index)
+    deleteTodos(index)
   };
 
   function saveTodos(text) {
@@ -86,6 +79,33 @@ function TodoComponent() {
     .then(res => console.log(res))
     .catch(err => console.error(err))
   }
+
+  const getTodos = async () => {
+    if (isLoggedIn) {
+      console.log("made the backend")
+      await axios
+      .get(`/todos/${account.username}`)
+      .then(res => setTodos(res.data))
+      .catch(err => console.error(err))
+    }
+  }
+
+  const deleteTodos = async (index) => {
+    if (isLoggedIn) {
+      console.log("made the backend")
+      await axios
+      .put(`/todos/delete/${account.username}`,{
+        todo: index
+      })
+      .then(res => console.log(res.data))
+      .catch(err => console.error(err))
+    }
+  }
+
+  useEffect(() => {
+    getTodos()
+    console.log(todos)
+  }, [])
 
   return (
     <div className="todo-component">

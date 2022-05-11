@@ -4,7 +4,6 @@ const Suggestion = require('../../models/Suggestion')
 
 async function getSuggestions(request, response, next) {
     if (request.params.username === null) {
-        console.log("null")
 
     } else {
     const preferences = await Account.findOne({username: request.params.username})
