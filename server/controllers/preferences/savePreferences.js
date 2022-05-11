@@ -14,17 +14,6 @@ async function savePreferences(request, response, next) {
             }
             response.status(201).send(doc);
         })
-        const lol = (
-            db.data.aggregate(
-              [
-                { $project: { 
-                  result: { 
-                    $add: [  ] } } 
-                    }
-              ]
-           )
-          )
-          console.log(lol)
 }
 
 module.exports = savePreferences

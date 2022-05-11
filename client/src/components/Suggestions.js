@@ -12,7 +12,6 @@ const data = [
 const Suggestions = () => (
   <>
     <List
-      style={{width: 400}}
       header={<div>BREAK SUGGESTIONS</div>}
       bordered
       dataSource={data}

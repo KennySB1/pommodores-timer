@@ -19,7 +19,6 @@ export default function PreferencesModal({open, close}) {
   
   }
 
-  
 
   return(
     <Dialog open={open} onClose={close}>

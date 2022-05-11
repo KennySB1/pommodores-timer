@@ -96,6 +96,7 @@ export default function Header() {
 
       <PreferencesModal
         open={preferencesModal}
+        close={() => setPreferencesModal(false)}
         />
     </AppBar>
   )

@@ -7,9 +7,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import SaveButton from './SaveButton';
 import {useAuth} from '../contexts/AuthContext'
 import axios from '../utils/axios';
+import {Button} from '@mui/material'
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -37,7 +37,7 @@ function getStyles(name, preferenceName, theme) {
   };
 }
 
-export default function Preferences() {
+export default function Preferences({close}) {
   const {account} = useAuth()
   const theme = useTheme();
   const [preferenceName, setPreferenceName] = React.useState([]);
@@ -51,6 +51,10 @@ export default function Preferences() {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
+
+const submitPreferences = () => {
+  preferencesPost(preferencesRef.current.querySelector('#select-multiple-chip').value.split(","))
+}
 
 function preferencesPost(chosenPreferences) {
 
@@ -95,7 +99,11 @@ function preferencesPost(chosenPreferences) {
             </MenuItem>
           ))}
         </Select>
-        <SaveButton onClick={() => preferencesPost(preferencesRef.current.querySelector('#select-multiple-chip').value.split(","))}/>
+
+        <Button
+          onClick={preferencesPost()}>
+         Submit Preferences
+        </Button>
       </FormControl>
       
     </div>

@@ -4,12 +4,12 @@ const Account = require('../../models/Account')
 const save = async (request, response, next) => {
 
   // try {
-    const {username, date, pomodoroLength} = request.body
+    const {username, name, pomodoroLength} = request.body
     console.log(request.body)
 
     Account.findOneAndUpdate(
       {username: username},
-      {$push: {completedPomodoros: {date: date, pomodoroLength: pomodoroLength}}},
+      {$push: {completedPomodoros: {name: name, pomodoroLength: pomodoroLength}}},
       (err, doc) => {
           if (err) {
               throw err

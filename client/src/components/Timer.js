@@ -41,11 +41,17 @@ const audioManager = new AudioPlayer
     if (props.mode === 'pomodoro') {
 
     if (account.username !== null) {
-      const dateNow = new Date()
+      let dateNow = new Date()
+      let dd = String(dateNow.getDate()).padStart(2, '0');
+      let mm = String(dateNow.getMonth() + 1).padStart(2, '0'); //January is 0!
+      let yyyy = dateNow.getFullYear();
+  
+      const today = mm + '/' + dd + '/' + yyyy;
+
       const pomodoroLength = settingsInfo.workMinutes;
-      const pomodoro = {username: account.username, date: dateNow, pomodoroLength: pomodoroLength}
-      
+      const pomodoro = {username: account.username, name: today, pomodoroLength: pomodoroLength}
       axios
+
         .post('/pomodoro/save', pomodoro)
         .then(res => console.log(res.data.completedPomodoros))
         .catch(err => console.error(err))
@@ -67,6 +73,7 @@ const audioManager = new AudioPlayer
       }
       tick();
     },1);
+
 
     return () => clearInterval(interval);
   }, [isPaused, secondsLeft]);
