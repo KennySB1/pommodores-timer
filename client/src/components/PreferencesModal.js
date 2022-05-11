@@ -5,11 +5,6 @@ import axios from '../utils/axios';
 
 const textFieldSx = {mx: 2, my: 0.5}
 
-
-
-
-
-
 export default function PreferencesModal({open, close}) {
 
   const [error, setError] = useState('')
@@ -19,12 +14,9 @@ export default function PreferencesModal({open, close}) {
   
   }
 
-  
-
   return(
     <Dialog open={open} onClose={close}>
       <PreferencesForm handleChange={handleChange} />
-      
     </Dialog>
 
   )
@@ -32,12 +24,11 @@ export default function PreferencesModal({open, close}) {
   function PreferencesForm({handleChange}) {
 return(
   <Dialog open={open} onClose={close}>
-  <Fragment>
-
-    <DialogTitle>Select your favourite break categories</DialogTitle>
-    <Preferences />
+    <Fragment>
+      <DialogTitle>Select your favourite break categories</DialogTitle>
+      <Preferences />
     </Fragment>
-    </Dialog>
+  </Dialog>
 )
   }
 }
