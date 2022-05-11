@@ -6,6 +6,7 @@ const authRoutes = require("./routes/auth");
 const pomodoroRoutes = require("./routes/pomodoro")
 const prefRoutes = require('./routes/preferences')
 const suggRoutes = require('./routes/suggestions')
+const todoRoutes = require('./routes/todos')
 
 async function bootstrap() {
   await mongo.connect();
@@ -15,7 +16,8 @@ async function bootstrap() {
   app.use("/auth", authRoutes);
   app.use("/pomodoro", pomodoroRoutes);
   app.use("/preferences", prefRoutes);
-  app.use("/suggestions", suggRoutes)
+  app.use("/suggestions", suggRoutes);
+  app.use("/todos", todoRoutes);
 
   app.listen(PORT, () => {
     console.log(`✅ Server is listening on port: ${PORT}`);

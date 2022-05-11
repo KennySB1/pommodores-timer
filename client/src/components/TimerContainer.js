@@ -12,7 +12,7 @@ function TimerContainer() {
         <SelectTimerType mode={mode} setMode={setMode} />
         <div style={{marginTop:'20px'}}>
           <Timer mode={mode}/>
-          <TodoComponent/>
+          {mode == "pomodoro" && <TodoComponent/>}
         </div>
           {mode !== "pomodoro" && <Suggestions/>}
           

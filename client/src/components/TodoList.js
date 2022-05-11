@@ -2,6 +2,8 @@ import React from "react";
 // import "./App.css";
 import { Button, Card, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "../utils/axios";
+import {useAuth} from '../contexts/AuthContext';
 
 
 function Todo({ todo, index, markTodo, removeTodo }) {
@@ -43,16 +45,23 @@ function FormTodo({ addTodo }) {
 }
 
 function TodoComponent() {
+  const {account} = useAuth()
   const [todos, setTodos] = React.useState([
     {
-      text: "This is a sampe todo",
+      text: "This is a sample todo",
+      isDone: false
+    },
+    {
+      text: "This is a another todo",
       isDone: false
     }
   ]);
 
   const addTodo = text => {
+    console.log(text);
     const newTodos = [...todos, { text }];
     setTodos(newTodos);
+    saveTodos(text)
   };
 
   const markTodo = index => {
@@ -66,6 +75,17 @@ function TodoComponent() {
     newTodos.splice(index, 1);
     setTodos(newTodos);
   };
+
+  function saveTodos(text) {
+    console.log(text)
+    axios
+    .post("/todos/save", {
+      username: account.username,
+      todo: text
+    })
+    .then(res => console.log(res))
+    .catch(err => console.error(err))
+  }
 
   return (
     <div className="todo-component">
