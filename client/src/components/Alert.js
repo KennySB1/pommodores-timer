@@ -1,4 +1,4 @@
-import audio from '../sounds/alert.mp3'
+import audio from '../sounds/alarm.mp3'
 
 import React from 'react'
 
