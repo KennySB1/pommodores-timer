@@ -4,17 +4,18 @@ const Account = require('../../models/Account')
 const save = async (request, response, next) => {
 
   // try {
-    const {username, date, pomodoroLength} = request.body
+    const {username, name, minutes} = request.body
 
     Account.findOneAndUpdate(
       {username: username},
-      {$push: {completedPomodoros: {date: date, pomodoroLength: pomodoroLength}}},
+      {$push: {completedPomodoros: {name: name, minutes: minutes}}},
       (err, doc) => {
           if (err) {
               throw err
           }
           response.status(201).send(doc);
       })
+      
 
     // response.status(201).json({
     //   message: 'Succesfully saved pomodoro',
@@ -22,5 +23,7 @@ const save = async (request, response, next) => {
     // })
   // }
 }
+
+
 
 module.exports = save;

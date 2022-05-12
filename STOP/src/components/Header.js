@@ -44,7 +44,7 @@ export default function Header() {
 
   return (
     <AppBar className='header' position='static'>
-      <h1>Pommodores</h1>
+      <h1  style={{display: 'flex', marginTop: '100px', justifyContent:'center', alignItems:'center'}}>Pommodores</h1>
 
       <IconButton onClick={openPopover}>
         <OnlineIndicator online={isLoggedIn}>

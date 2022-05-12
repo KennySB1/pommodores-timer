@@ -8,12 +8,20 @@ import SettingsContext from "./SettingsContext";
 import StopButton from './StopButton';
 import axios from '../utils/axios';
 import {useAuth} from '../contexts/AuthContext';
+import React from 'react';
+import AudioPlayer from './Alert';
+import Chart from './Chart';
 
+
+
+ 
 const red = '#f54e4e';
 const green = '#4aec8c';
+const blue = '#2b78e4'
 
 export const Timer = (props) => {
 
+const audioManager = new AudioPlayer
   const stop = ()=>  {
     const secondsForMode = props.mode === 'pomodoro' ? settingsInfo.workMinutes * 60 : props.mode === 'shortBreak' ? settingsInfo.shortBreakMinutes * 60 : settingsInfo.longBreakMinutes * 60;
     setIsPaused(true);
@@ -29,15 +37,24 @@ export const Timer = (props) => {
     setSecondsLeft(secondsLeft - 1);
   }
 
+
   const saveCompletedPomodoro = () => {
     if (props.mode === 'pomodoro') {
 
     if (account.username !== null) {
-      const dateNow = Date.now();
-      const pomodoroLength = settingsInfo.workMinutes;
-      const pomodoro = {username: account.username, date: dateNow, pomodoroLength: pomodoroLength}
+      let dateNow = new Date()
+      let dd = String(dateNow.getDate()).padStart(2, '0');
+      let mm = String(dateNow.getMonth() + 1).padStart(2, '0'); //January is 0!
+      let yyyy = dateNow.getFullYear();
+  
+      const today = mm + '/' + dd + '/' + yyyy;
+
+      const minutes = settingsInfo.workMinutes;
+      const pomodoro = {username: account.username, name: today, minutes: minutes}
       axios
+
         .post('/pomodoro/save', pomodoro)
+        .then(res => console.log("Pomodoro saved successfully"))
         .catch(err => console.error(err))
       }
     }
@@ -49,6 +66,7 @@ export const Timer = (props) => {
         return;
       }
       if (secondsLeft === 0) {
+        audioManager.playAudio();
         stop();
         saveCompletedPomodoro();
         return;
@@ -56,6 +74,7 @@ export const Timer = (props) => {
       }
       tick();
     },1);
+
 
     return () => clearInterval(interval);
   }, [isPaused, secondsLeft]);
@@ -90,7 +109,9 @@ export const Timer = (props) => {
       counterClockwise={true}
       styles={buildStyles({
       textColor:'#20 10 10',
-      pathColor:props.mode !== 'pomodoro' ? green : red,
+      pathColor:props.mode == 'pomodoro' ? red 
+      : props.mode == 'shortBreak' ? green
+      : blue,
       tailColor:'rgba(255,255,255,.2)',
     })} />
     <div style={{marginTop:'20px'}}>
@@ -99,7 +120,6 @@ export const Timer = (props) => {
         : <PauseButton onClick={() => { setIsPaused(true)}} />}
         <StopButton onClick={()=> stop()}/>
         <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
-
 
     </div>
     <div style={{marginTop:'20px'}}>

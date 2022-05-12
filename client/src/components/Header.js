@@ -12,6 +12,7 @@ import OnlineIndicator from './OnlineIndicator'
 import AuthModal from './AuthModal'
 import PreferencesModal from './PreferencesModal'
 import {useAuth} from '../contexts/AuthContext'
+import StatisticsModal from './StatisticsModal'
 
 export default function Header() {
   const {isLoggedIn, account, logout} = useAuth()
@@ -21,6 +22,7 @@ export default function Header() {
   const [authModal, setAuthModal] = useState(false)
   const [preferencesModal, setPreferencesModal] = useState(false)
   const [register, setRegister] = useState(false)
+  const [statisticsModal, setStatisticsModal] = useState(false)
 
   const openPopover = (e) => {
     setPopover(true)
@@ -49,6 +51,10 @@ export default function Header() {
     closePopover()
   }
 
+  const clickStatistics = () => {
+    setStatisticsModal(true)
+    closePopover()
+  }
   return (
     <AppBar className='header' position='static'>
       <h1>Pommodores</h1>
@@ -74,6 +80,7 @@ export default function Header() {
             <Fragment>
                 <ListItemButton onClick={logout}>Logout</ListItemButton>
                 <ListItemButton onClick={clickPreferences}>Preferences</ListItemButton>
+                <ListItemButton onClick={clickStatistics}>Statistics</ListItemButton>
             </Fragment>
           
           ) : (
@@ -96,6 +103,12 @@ export default function Header() {
 
       <PreferencesModal
         open={preferencesModal}
+        close={() => setPreferencesModal(false)}
+        />
+
+        <StatisticsModal
+        open={statisticsModal}
+        close={() => setStatisticsModal(false)}
         />
     </AppBar>
   )
