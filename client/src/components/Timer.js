@@ -49,12 +49,12 @@ const audioManager = new AudioPlayer
   
       const today = mm + '/' + dd + '/' + yyyy;
 
-      const pomodoroLength = settingsInfo.workMinutes;
-      const pomodoro = {username: account.username, name: today, pomodoroLength: pomodoroLength}
+      const minutes = settingsInfo.workMinutes;
+      const pomodoro = {username: account.username, name: today, minutes: minutes}
       axios
 
         .post('/pomodoro/save', pomodoro)
-        .then(res => console.log(res.data.completedPomodoros))
+        .then(res => console.log("Pomodoro saved successfully"))
         .catch(err => console.error(err))
       }
     }
@@ -119,7 +119,6 @@ const audioManager = new AudioPlayer
         : <PauseButton onClick={() => { setIsPaused(true)}} />}
         <StopButton onClick={()=> stop()}/>
         <SettingsButton onClick={() => settingsInfo.setShowSettings(true)} />
-        <Chart/>
 
     </div>
     <div style={{marginTop:'20px'}}>

@@ -69,7 +69,7 @@ function preferencesPost(chosenPreferences) {
 
 
   return (
-    <div>
+    <div className='hi' style={{display: 'flex',  justifyContent:'center', alignItems:'center'}} >
       <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="demo-multiple-chip-label">Favourite categories</InputLabel>
         <Select

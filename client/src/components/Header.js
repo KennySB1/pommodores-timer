@@ -12,6 +12,7 @@ import OnlineIndicator from './OnlineIndicator'
 import AuthModal from './AuthModal'
 import PreferencesModal from './PreferencesModal'
 import {useAuth} from '../contexts/AuthContext'
+import StatisticsModal from './StatisticsModal'
 
 export default function Header() {
   const {isLoggedIn, account, logout} = useAuth()
@@ -21,6 +22,7 @@ export default function Header() {
   const [authModal, setAuthModal] = useState(false)
   const [preferencesModal, setPreferencesModal] = useState(false)
   const [register, setRegister] = useState(false)
+  const [statisticsModal, setStatisticsModal] = useState(false)
 
   const openPopover = (e) => {
     setPopover(true)
@@ -105,7 +107,7 @@ export default function Header() {
         />
 
         <StatisticsModal
-        open={StatisticsModal}
+        open={statisticsModal}
         close={() => setStatisticsModal(false)}
         />
     </AppBar>

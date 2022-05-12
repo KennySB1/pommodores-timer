@@ -23,19 +23,15 @@ const Chart = () => {
   
 
 const fixData = (res) => {
-  console.log("in the function res")
-  console.log(res)
 
-let out = res[0].reduce((a, o) => (a[o.name] ? a[o.name].pomodoroLength += o.pomodoroLength : a[o.name] = o, a) )
+let out = res[0].reduce((a, o) => (a[o.name] ? a[o.name].minutes += o.minutes : a[o.name] = o, a) )
 
 
-console.log("out below")
-console.log(out)
+
 
 var keys = Object.keys(out);
 let filteredOutput = []
 for (var i = 0; i < keys.length; i++) {
-  console.log("keys stuff below")
     filteredOutput.push(out[keys[i]])
     // use val
 }
@@ -63,8 +59,7 @@ useEffect(()=>{
 
 
 useEffect(() => {
- console.log("data below")
- console.log(data)
+
   }, [data])
  
 
@@ -91,7 +86,7 @@ useEffect(() => {
     <Legend />
     <Line
       type="monotone"
-      dataKey="pomodoroLength"
+      dataKey="minutes"
       stroke="#8884d8"
       activeDot={{ r: 8 }}
     />

@@ -31,7 +31,7 @@ function Settings() {
       />
       <label>Long Break: {settingsInfo.longBreakMinutes}:00</label>
       <ReactSlider
-        className={'slider green'}
+        className={'slider blue'}
         thumbClassName={'thumb'}
         trackClassName={'track'}
         value={settingsInfo.longBreakMinutes}
