@@ -17,6 +17,7 @@ import Chart from './Chart';
  
 const red = '#f54e4e';
 const green = '#4aec8c';
+const blue = '#2b78e4'
 
 export const Timer = (props) => {
 
@@ -107,7 +108,9 @@ const audioManager = new AudioPlayer
       text={minutes + ':' + seconds}
       styles={buildStyles({
       textColor:'#20 10 10',
-      pathColor:props.mode !== 'pomodoro' ? green : red,
+      pathColor:props.mode == 'pomodoro' ? red 
+      : props.mode == 'shortBreak' ? green
+      : blue,
       tailColor:'rgba(255,255,255,.2)',
     })} />
     <div style={{marginTop:'20px'}}>

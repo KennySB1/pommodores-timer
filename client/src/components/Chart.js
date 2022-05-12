@@ -1,15 +1,4 @@
 
-
-
-
-//  useEffect(() => {
-//    fetchPomodoros();
-//  }, []);
-
-
-
-//  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-
 import {
   LineChart,
   Line,
@@ -26,47 +15,15 @@ import {useContext, useState, useEffect} from "react";
 import axios from "../utils/axios";
 
 
-
-// const data = [
-//   {
-//     name: "Page A",
-//     uv: 4000,
-//     pv: 2400,
-//     amt: 2400
-//   },
-//   {
-//     name: "Page B",
-//     uv: 3000,
-//     pv: 1398,
-//     amt: 2210
-//   },
-// ];
-
 const Chart = () => {
 
-  const mockData = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-  
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-    }
-  ];
-  const {account} = useAuth()
-  // const [pomodoros, setPomodoros] = useState([{name: "monday", minutes: 5000}, {}]);
   const [data, setData] = useState([])
-    // {name: "monday", minutes: 5000},{name: "tuesday", minutes: 4000}]
+  
+  const {account} = useAuth()
+  useEffect(()=>{
+    if (account!== null)
+  {  FetchPomodoros() }
+  }, [account])
 
 
 const FetchPomodoros = async () => {
@@ -75,29 +32,28 @@ const FetchPomodoros = async () => {
      .get(`/pomodoro/getPomos/${account.username}`)
      .then((res) => {
        console.log("res below")
-       console.log(res.data)
+       console.log(res)
        setData(res.data)})
-       console.log("here")
-       console.log(data)
      .catch(err => console.error(err))
 
 
 }
-// [{name: "tuesday", minutes: 5000}]
 
 useEffect(() => {
- FetchPomodoros();
-  }, [])
+ console.log("data below")
+ console.log(data)
+  }, [data])
  
 
 
 
-  
+
   return (
+    
     <LineChart
     width={500}
     height={300}
-    data={data}
+    data={data[0]}
     margin={{
       top: 5,
       right: 30,
@@ -112,7 +68,7 @@ useEffect(() => {
     <Legend />
     <Line
       type="monotone"
-      dataKey="pv"
+      dataKey="pomodoroLength"
       stroke="#8884d8"
       activeDot={{ r: 8 }}
     />
@@ -120,10 +76,10 @@ useEffect(() => {
   </LineChart>
 
 
+
+
   );
 }
-
-
 
 
 
