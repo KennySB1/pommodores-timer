@@ -49,6 +49,10 @@ export default function Header() {
     closePopover()
   }
 
+  const clickStatistics = () => {
+    setStatisticsModal(true)
+    closePopover()
+  }
   return (
     <AppBar className='header' position='static'>
       <h1>Pommodores</h1>
@@ -74,6 +78,7 @@ export default function Header() {
             <Fragment>
                 <ListItemButton onClick={logout}>Logout</ListItemButton>
                 <ListItemButton onClick={clickPreferences}>Preferences</ListItemButton>
+                <ListItemButton onClick={clickStatistics}>Statistics</ListItemButton>
             </Fragment>
           
           ) : (
@@ -97,6 +102,11 @@ export default function Header() {
       <PreferencesModal
         open={preferencesModal}
         close={() => setPreferencesModal(false)}
+        />
+
+        <StatisticsModal
+        open={StatisticsModal}
+        close={() => setStatisticsModal(false)}
         />
     </AppBar>
   )

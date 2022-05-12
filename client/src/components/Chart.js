@@ -20,11 +20,28 @@ const Chart = () => {
   const [data, setData] = useState([])
   
   const {account} = useAuth()
-  useEffect(()=>{
-    if (account!== null)
-  {  FetchPomodoros() }
-  }, [account])
+  
 
+const fixData = (res) => {
+  console.log("in the function res")
+  console.log(res)
+
+let out = res[0].reduce((a, o) => (a[o.name] ? a[o.name].pomodoroLength += o.pomodoroLength : a[o.name] = o, a) )
+
+
+console.log("out below")
+console.log(out)
+
+var keys = Object.keys(out);
+let filteredOutput = []
+for (var i = 0; i < keys.length; i++) {
+  console.log("keys stuff below")
+    filteredOutput.push(out[keys[i]])
+    // use val
+}
+
+return(filteredOutput)
+}
 
 const FetchPomodoros = async () => {
 
@@ -33,11 +50,17 @@ const FetchPomodoros = async () => {
      .then((res) => {
        console.log("res below")
        console.log(res)
-       setData(res.data)})
+       setData(fixData(res.data))})
      .catch(err => console.error(err))
 
-
+// res.data
 }
+
+useEffect(()=>{
+  if (account!== null)
+{  FetchPomodoros() }
+}, [account])
+
 
 useEffect(() => {
  console.log("data below")
@@ -53,7 +76,7 @@ useEffect(() => {
     <LineChart
     width={500}
     height={300}
-    data={data[0]}
+    data={data}
     margin={{
       top: 5,
       right: 30,
@@ -72,7 +95,6 @@ useEffect(() => {
       stroke="#8884d8"
       activeDot={{ r: 8 }}
     />
-    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
   </LineChart>
 
 
