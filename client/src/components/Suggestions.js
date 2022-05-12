@@ -13,7 +13,6 @@ const Suggestions = () => {
 
   const breakSuggestions = async () => {
     if (isLoggedIn) {
-      console.log("made the backend")
       await axios
       .get(`/suggestions/${account.username}`)
       .then(res => setSuggestions(res.data))

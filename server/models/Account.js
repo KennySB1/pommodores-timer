@@ -27,6 +27,10 @@ const instance = new mongoose.Schema(
       type: Array,
       required: false
     },
+    todos: {
+      type: Array,
+      required: false
+    },
     categoryPreferences: {
       type: Array,
       required: false,
