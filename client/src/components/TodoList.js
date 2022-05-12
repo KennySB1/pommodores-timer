@@ -14,7 +14,6 @@ function Todo({ todo, index, markTodo, removeTodo }) {
     >
       <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>{todo}</span>
       <div>
-        <Button variant="outline-success" onClick={() => markTodo(index)}>✓</Button>{' '}
         <Button variant="outline-danger" onClick={() => removeTodo(index)}>✕</Button>
       </div>
     </div>
@@ -119,7 +118,6 @@ function TodoComponent() {
                 key={index}
                 index={index}
                 todo={todo}
-                markTodo={markTodo}
                 removeTodo={removeTodo}
                 />
               </Card.Body>
