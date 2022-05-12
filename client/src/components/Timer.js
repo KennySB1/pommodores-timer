@@ -106,6 +106,7 @@ const audioManager = new AudioPlayer
     <CircularProgressbar
       value={percentage}
       text={minutes + ':' + seconds}
+      counterClockwise={true}
       styles={buildStyles({
       textColor:'#20 10 10',
       pathColor:props.mode == 'pomodoro' ? red 
