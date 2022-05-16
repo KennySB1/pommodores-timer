@@ -101,7 +101,6 @@ function preferencesPost(chosenPreferences) {
         </Select>
 
         <Button
-                  // onClick={submitPreferences()}>
           onClick={() => preferencesPost(preferencesRef.current.querySelector('#select-multiple-chip').value.split(","))}>
          Submit Preferences
         </Button>
