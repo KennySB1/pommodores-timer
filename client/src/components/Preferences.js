@@ -101,7 +101,7 @@ function preferencesPost(chosenPreferences) {
         </Select>
 
         <Button
-          onClick={preferencesPost()}>
+          onClick={submitPreferences()}>
          Submit Preferences
         </Button>
       </FormControl>
