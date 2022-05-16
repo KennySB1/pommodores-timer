@@ -73,7 +73,7 @@ const audioManager = new AudioPlayer
         // return switchMode();
       }
       tick();
-    },1);
+    },1000);
 
 
     return () => clearInterval(interval);
